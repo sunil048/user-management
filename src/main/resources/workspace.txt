@@ -1,0 +1,7 @@
+Address
+https://hellokoding.com/registration-and-login-example-with-spring-security-spring-boot-spring-data-jpa-hsql-jsp/
+Hibernate: create table role (id  bigserial not null, name varchar(255), primary key (id))
+Hibernate: create table users (id  bigserial not null, password varchar(255), username varchar(255), primary key (id))
+Hibernate: create table users_roles (users_id int8 not null, roles_id int8 not null, primary key (users_id, roles_id))
+Hibernate: alter table users_roles add constraint FK15d410tj6juko0sq9k4km60xq foreign key (roles_id) references role
+Hibernate: alter table users_roles add constraint FKml90kef4w2jy7oxyqv742tsfc foreign key (users_id) references users
