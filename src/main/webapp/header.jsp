@@ -8,7 +8,5 @@
 </head>
 <body>
 
-This this is Home page
-
 </body>
 </html>
