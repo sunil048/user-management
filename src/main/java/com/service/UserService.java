@@ -10,6 +10,6 @@ public interface UserService {
     User findByUsername(String username);
     User findUserById(Long userId);
     List <User> getAllUsers();
-    boolean upadateRolesForUser(String roles[]);
+    boolean upadateRolesForUser(Long userId,String roles[]);
     
 }

@@ -10,8 +10,14 @@
 	rel="stylesheet">
 </head>
 <body>
+<%@include file= "header.jsp" %>
 	<h4 class="h4">User Details</h4>
     <table>
+    <tr>
+    	  <td>User Id </td>
+    	  <td >${user.id}</td>
+    	  <input type="hidden" id="userId" value="${user.id}"/>
+    	</tr>
     	<tr>
     	  <td>User Name </td>
     	  <td>${user.username}</td>
@@ -30,9 +36,13 @@
     	</tr>
     
     </table>
-    ${user.roles}
+    Roles
+    <c:forEach items="${user.roles}" var="role">
+    <c:out value="${role.name}"></c:out>
+    
+    </c:forEach>
+    <br>
 	<h4 class="h4">Select user Roles</h4>
-	User : ${userName}
 	<div class="container">
 		<table>
 			<tr>
@@ -95,6 +105,7 @@
 
  function setValues(data){
 	 console.log('data'+data)
+
 	 var rolesJsonData = JSON.parse(data);
 	// Element optionElement = document.createDocument();
 	console.log(rolesJsonData)
@@ -131,7 +142,7 @@
 	    xmlhttp.open("GET", "http://localhost:8082/role/list", true);
 	    xmlhttp.send();
  }
- function updateUserDetailsTobackEnd(roleList){
+ function updateUserDetailsTobackEnd(userId,roleList){
 	var xmlhttp = new XMLHttpRequest();
 
 xmlhttp.onreadystatechange = function() {
@@ -139,7 +150,8 @@ xmlhttp.onreadystatechange = function() {
 			 if (xmlhttp.status == 200) {
 					// document.getElementById("myDiv").innerHTML = xmlhttp.responseText;
 					 console.log(xmlhttp.responseText)
-					 setValues(xmlhttp.responseText);
+					 //setValues(xmlhttp.responseText);
+					 alert(xmlhttp.responseText)
 			 }
 			 else if (xmlhttp.status == 400) {
 					alert('There was an error 400');
@@ -151,12 +163,13 @@ xmlhttp.onreadystatechange = function() {
 		}
 };
 
-xmlhttp.open("GET", "http://localhost:8082/role/update?roleList="+roleList, true);
+xmlhttp.open("GET", "http://localhost:8082/role/update?UserId="+userId+"&roleList="+roleList, true);
 xmlhttp.send();
  }
 
  function submitRoles(){
-	 console.log('submitted')
+	 var userId = document.getElementById("userId").value;
+	 alert(userId)
 	 var selected_roles = document.getElementById('selected_roles');
 	 console.log(selected_roles)
 	 var myList;
@@ -171,7 +184,7 @@ xmlhttp.send();
 		 }
 	 }
 	 if (myList.length > 0)
-	 		updateUserDetailsTobackEnd(myList);
+	 		updateUserDetailsTobackEnd(userId,myList);
  }
 </script>
 </body>

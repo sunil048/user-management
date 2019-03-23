@@ -1,11 +1,14 @@
 package com.controller;
 
 import java.util.Date;
+import java.util.List;
 import java.text.SimpleDateFormat;
+import java.util.Arrays;
 import java.util.Calendar;
 
 import org.slf4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.ComponentScan;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
@@ -15,15 +18,20 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.model.User;
+import com.repository.RoleRepository;
 import com.repository.UserRepository;
+import com.service.RoleService;
+import com.service.RoleServiceImpl;
 import com.service.SecurityService;
 import com.service.UserService;
 import com.validator.UserValidator;
 
 @Controller
 public class UserController {
+	
 	
     @Autowired
     private UserService userService;
@@ -33,11 +41,18 @@ public class UserController {
 
     @Autowired
     private UserValidator userValidator;
+    
+    @Autowired
+	RoleRepository roleRepo;
+    
+    
+    @Autowired(required=true)
+    private RoleService roleService;
+    
 
     @GetMapping("/registration")
     public String registration(Model model) {
         model.addAttribute("userForm", new User());
-
         return "registration";
     }
 
@@ -81,6 +96,7 @@ public class UserController {
     	String date = sdf.format(new Date()); */
     	System.out.println(new Date());
     	model.addAttribute("userDetailsForm", user);
+        model.addAttribute("rolesNameList", roleService.getAllRolesName());
     	model.addAttribute("userList", userService.getAllUsers());
     	return "userdetails";
     }
@@ -93,20 +109,21 @@ public class UserController {
     }
     @GetMapping("/userHome/{userId}")
     public String getUserHomePage(@PathVariable("userId") String userId ,Model model) {
-    	model.addAttribute("user", userService.findUserById(Long.valueOf(userId)));
-    	model.addAttribute("userName",getCurrentUserName());
+    	User user = userService.findUserById(Long.valueOf(userId));
+    	model.addAttribute("user", user );
+    	/*List <String> rolesName =  roleRepo.getListOfRoleNamesByUserId(Long.valueOf(userId));
+    	model.addAttribute("rolesName", rolesName);*/
     	return "userhomepage";
     }
-     private String getCurrentUserName() {
-    	 Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-    	 String username;
-    	 if (principal instanceof UserDetails) {
-    	    username = ((UserDetails)principal).getUsername();
-    	 } else {
-    	    username = principal.toString();
-    	 }
-    	 System.out.println(username);
-    	 return username;
-
-     }
+	private String getCurrentUserName() {
+		Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		String username;
+		if (principal instanceof UserDetails) {
+			username = ((UserDetails) principal).getUsername();
+		} else {
+			username = principal.toString();
+		}
+		System.out.println(username);
+		return username;
+	}
 }

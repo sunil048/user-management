@@ -31,7 +31,7 @@ public class UserServiceImpl implements UserService {
 	@Override
 	public void save(User user) {
 		user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
-		user.setRoles(new HashSet<>(roleRepository.findAll()));
+		//user.setRoles(new HashSet<>(roleRepository.findAll()));
 		userRepository.save(user);
 	}
 
@@ -46,20 +46,22 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
-	public boolean upadateRolesForUser(String[] roles) {
+	public boolean upadateRolesForUser(Long userId,String[] roles) {
 		Set <Role> roleList = new HashSet<Role>();
-		Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+	/*	Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 		String username;
 		if (principal instanceof UserDetails) {
 			username = ((UserDetails) principal).getUsername();
 		} else {
 			username = principal.toString();
 		}
-		User user = userRepository.findByUsername(username);
+		User user = userRepository.findByUsername(username);*/
 		for (String roleId : roles) {
 			roleList.add(roleRepository.getOne(Long.valueOf(roleId)));
 		}
+		User user = userRepository.getOne(userId);
 		user.setRoles(roleList);
+		userRepository.saveAndFlush(user);
 		return true;
 	}
 

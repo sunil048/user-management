@@ -44,11 +44,15 @@ public class RoleController {
 	}
 
 	@GetMapping("/update")
-	public String getUpdateUserList(@RequestParam("roleList") String roleList,Model model) {
+	@ResponseBody
+	public String getUpdateUserList(@RequestParam("UserId") String userId,@RequestParam("roleList") String roleList,Model model) {
+		System.out.println("userId "+userId);
         System.out.println(roleList);
         String [] roles = roleList.split("-");
-        boolean res = userService.upadateRolesForUser(roles);
-        System.out.println(res);
-		return "redirect:/";
+        boolean res = userService.upadateRolesForUser(Long.valueOf(userId),roles);
+        if (true)
+        	return "updated";
+        else
+        	return "Error while updating";
 	}
 }

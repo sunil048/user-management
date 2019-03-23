@@ -11,6 +11,7 @@
  <link href="${contextPath}/resources/css/bootstrap.min.css" rel="stylesheet">
 </head>
 <body>
+<%@include file= "header.jsp" %>
 	<h1 class="h4">User Details</h1>
 	<h1 class="h6">User Form</h1>
 	<form:form action="${contextPath}/saveUser" modelAttribute="userDetailsForm" method="post"
@@ -45,10 +46,19 @@
 					<form:errors></form:errors>
 			</td>
 			</tr>
+			<tr>
+				<td>Role</td>
+				<td>
+					<c:forEach items="${rolesNameList}" var="roleName">
+						${roleName} <input type="checkbox" id="${roleName}" name="role" > <br>
+					</c:forEach>
+				</td>
+			</tr>
 			<tr>		
 				<td> <button class="btn btn-lg btn-primary btn-block" type="submit">Submit</button></td>
 			</tr>
 		</table>
+		
 	</form:form>
 	<div>
 	<h6 class="h6">User list</h6>
@@ -62,7 +72,7 @@
 		</tr>
 		<c:forEach items="${userList}" var="user">
 		<tr>
-		   <td><a href="${contextPath}/userHome/"${user.id}>${user.id}</a></td>
+		   <td><a href="${contextPath}/userHome/${user.id}">${user.id}</a></td>
 		   <td>${user.username}</td>
 		   <td>${user.gender}</td>
 		   <td>${user.dob}</td>
