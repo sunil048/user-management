@@ -18,7 +18,7 @@
 		class="form-signin">
 		<table>
 			<tr>
-				<td>Id</td>
+				<td ><span class="badge">Id</span></td>
 				<td><form:input type="text" class="form-control" path="id" />
 					<form:errors></form:errors>
 				</td>
@@ -76,6 +76,16 @@
 		   <td>${user.username}</td>
 		   <td>${user.gender}</td>
 		   <td>${user.dob}</td>
+		   <td>
+		   ${user.roles}
+		   <c:if test="${user.roles != null}">
+		   	<c:forEach items=" ${user.roles}" var="role">
+		   			 <c:forEach items=" ${role}" var="role1">
+		   			 <c:out value="${role1}" /> 
+		   		</c:forEach>
+		   		</c:forEach>
+		   </c:if>
+		  </td>
 		<!--    <td> <button type="button" class="btn btn-default btn-sm">
           <span class="glyphicon glyphicon-pencil"></span> Pencil 
         </button></td> -->

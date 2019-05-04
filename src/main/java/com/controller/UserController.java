@@ -2,11 +2,13 @@ package com.controller;
 
 import java.util.Date;
 import java.util.List;
+import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
 import java.util.Arrays;
 import java.util.Calendar;
 
 import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -27,11 +29,12 @@ import com.service.RoleService;
 import com.service.RoleServiceImpl;
 import com.service.SecurityService;
 import com.service.UserService;
+import com.util.IDGenerator;
 import com.validator.UserValidator;
 
 @Controller
 public class UserController {
-	
+	 Logger logger = LoggerFactory.getLogger(UserController.class);
 	
     @Autowired
     private UserService userService;
@@ -58,12 +61,15 @@ public class UserController {
 
     @PostMapping("/registration")
     public String registration(@ModelAttribute("userForm") User userForm, BindingResult bindingResult) {
+    	logger.info("Saving user "+userForm.getFirstName());
+    	logger.debug("Validating user form details");
         userValidator.validate(userForm, bindingResult);
 
         if (bindingResult.hasErrors()) {
             return "registration";
         }
-
+       
+        userForm.setCreatedDate(new Timestamp(new Date().getTime()));
         userService.save(userForm);
 
         securityService.autoLogin(userForm.getUsername(), userForm.getPasswordConfirm());
@@ -103,6 +109,7 @@ public class UserController {
     
     @PostMapping("/saveUser")
     public String addUser(@ModelAttribute("userDetailsForm") User userForm){
+    	System.out.println(userForm.getDob());
     	System.out.println("Adding user");
     	userService.save(userForm);
     	return "redirect:/";

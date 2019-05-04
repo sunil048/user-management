@@ -14,7 +14,7 @@
 	<h4 class="h4">User Details</h4>
     <table>
     <tr>
-    	  <td>User Id </td>
+    	  <td > <span class="badge">User Id</span> </td>
     	  <td >${user.id}</td>
     	  <input type="hidden" id="userId" value="${user.id}"/>
     	</tr>
@@ -33,6 +33,10 @@
     	<tr>
     	  <td>User is Active? </td>
     	  <td>${user.isActive}</td>
+    	</tr>
+    	<tr>
+    	  <td>Created Date : </td>
+    	  <td>${user.createdDate}</td>
     	</tr>
     
     </table>

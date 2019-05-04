@@ -6,6 +6,8 @@ import javax.validation.constraints.NotNull;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import java.io.Serializable;
+import java.sql.Timestamp;
+import java.time.LocalDate;
 import java.util.Date;
 import java.util.Set;
 
@@ -15,13 +17,25 @@ public class User implements Serializable{
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
+	
+	@Column(name="UserId" ,unique=true)
+	private Long userId;
 
+	@Column(name="FirstName")
+	private String firstName;
+	
+	@Column(name="UserName")
 	private String username;
 
+	@Column(name="password")
 	private String password;
 	
 	@DateTimeFormat(pattern = "dd-MM-yyyy")
 	private Date dob;
+	
+	@DateTimeFormat(pattern = "dd-MM-yyyy hh:mm:ss")
+	@Column(name="CreatedDate",updatable=false)
+	private Timestamp createdDate;
 	
 	@NotNull
 	@Column(name="is_active")
@@ -57,7 +71,7 @@ public class User implements Serializable{
 	@Transient
 	private String passwordConfirm;
 
-	@ManyToMany()
+	@ManyToMany(fetch=FetchType.EAGER)
 	private Set<Role> roles;
 
 	public Long getId() {
@@ -99,4 +113,34 @@ public class User implements Serializable{
 	public void setRoles(Set<Role> roles) {
 		this.roles = roles;
 	}
+
+	public String getFirstName() {
+		return firstName;
+	}
+
+	public void setFirstName(String firstName) {
+		this.firstName = firstName;
+	}
+
+	public void setActive(boolean isActive) {
+		this.isActive = isActive;
+	}
+
+	public Long getUserId() {
+		return userId;
+	}
+
+	public void setUserId(Long userId) {
+		this.userId = userId;
+	}
+
+	public Timestamp getCreatedDate() {
+		return createdDate;
+	}
+
+	public void setCreatedDate(Timestamp createdDate) {
+		this.createdDate = createdDate;
+	}
+	
+	
 }

@@ -6,6 +6,7 @@ import com.model.Role;
 import com.model.User;
 import com.repository.RoleRepository;
 import com.repository.UserRepository;
+import com.util.IDGenerator;
 
 import java.util.HashSet;
 import java.util.List;
@@ -31,6 +32,7 @@ public class UserServiceImpl implements UserService {
 	@Override
 	public void save(User user) {
 		user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
+		 user.setUserId(IDGenerator.generateUserId());
 		//user.setRoles(new HashSet<>(roleRepository.findAll()));
 		userRepository.save(user);
 	}
@@ -56,12 +58,12 @@ public class UserServiceImpl implements UserService {
 			username = principal.toString();
 		}
 		User user = userRepository.findByUsername(username);*/
-		for (String roleId : roles) {
+		/*for (String roleId : roles) {
 			roleList.add(roleRepository.getOne(Long.valueOf(roleId)));
-		}
-		User user = userRepository.getOne(userId);
-		user.setRoles(roleList);
-		userRepository.saveAndFlush(user);
+		}*/
+		//User user = userRepository.getOne(userId);
+		//user.setRoles(roleList);
+		//userRepository.saveAndFlush(user);
 		return true;
 	}
 

@@ -8,26 +8,28 @@ public class DBUtil {
 	
 	protected  Connection connection;
 	public  void start() {
-		try {
-			Class.forName("org.postgresql.Driver");
-			 connection = DriverManager.getConnection("jdbc:postgresql://192.168.92.137:5432/user-management","postgres","admin1");
-			 
-		} catch (ClassNotFoundException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+		if (connection == null) {
+			try {
+				Class.forName("org.postgresql.Driver");
+				connection = DriverManager.getConnection("jdbc:postgresql://192.168.92.137:5432/user-management","postgres","admin1");
+			} catch (ClassNotFoundException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 		}
 	}
 	
 	public  void stop() {
-		if (connection != null)
+		if (connection != null) {
 			try {
 				connection.close();
 			} catch (SQLException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
+		}
 	}
 }

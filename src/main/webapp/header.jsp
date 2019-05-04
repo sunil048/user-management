@@ -6,7 +6,11 @@
 <meta charset="ISO-8859-1">
 <title>Insert title here</title>
 </head>
-<body>
-This is header page
+<body >
+<table>
+<tr>
+<td><h1 class=".h1">SABTOK</h1></td>
+<td><a href="${contextPath}/"><h1 align="right">Home</h1></a></td>
+</tr></table>
 </body>
 </html>

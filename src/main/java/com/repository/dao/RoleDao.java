@@ -45,5 +45,27 @@ public class RoleDao extends DBUtil {
 		System.out.println(roleNames);
 		return roleNames;
 	}
+	public boolean updateRolesForTheUser(Long userId,List<Long> rolesIds) {
+		start();
+		if (connection != null) {
+			PreparedStatement ps;
+			try {
+				ps = connection.prepareStatement(RoleConstants.SQL_UPDATE_ROLES_FOR_USER);
+				ps.setLong(1, userId);
+				for (Long roleId : rolesIds) {
+					ps.setLong(2, roleId);
+					ps.executeUpdate();
+				}
+			return true;
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+				return false;
+			}finally {
+				stop();
+			}
+		}
+		return false;
+	}
 	
 }
