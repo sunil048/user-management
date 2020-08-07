@@ -64,16 +64,13 @@ public class UserController {
     	logger.info("Saving user "+userForm.getFirstName());
     	logger.debug("Validating user form details");
         userValidator.validate(userForm, bindingResult);
-
         if (bindingResult.hasErrors()) {
             return "registration";
         }
-       
+        logger.debug("Adding timestamp "+new Timestamp(new Date().getTime()).toLocaleString());
         userForm.setCreatedDate(new Timestamp(new Date().getTime()));
         userService.save(userForm);
-
         securityService.autoLogin(userForm.getUsername(), userForm.getPasswordConfirm());
-
         return "redirect:/welcome";
     }
 
@@ -82,10 +79,8 @@ public class UserController {
     	System.out.println("login");
         if (error != null)
             model.addAttribute("error", "Your username and password is invalid.");
-
         if (logout != null)
             model.addAttribute("message", "You have been logged out successfully.");
-
         return "login";
     }
 
@@ -97,10 +92,8 @@ public class UserController {
     @GetMapping("/userDetails")
     public String getUserdeatisl(Model model) {
     	User user = new User();
-        user.setDob(new Date());
     	/*SimpleDateFormat sdf = new SimpleDateFormat("dd/M/yyyy");
     	String date = sdf.format(new Date()); */
-    	System.out.println(new Date());
     	model.addAttribute("userDetailsForm", user);
         model.addAttribute("rolesNameList", roleService.getAllRolesName());
     	model.addAttribute("userList", userService.getAllUsers());
@@ -111,6 +104,8 @@ public class UserController {
     public String addUser(@ModelAttribute("userDetailsForm") User userForm){
     	System.out.println(userForm.getDob());
     	System.out.println("Adding user");
+    	logger.debug("Adding timestamp "+new Timestamp(new Date().getTime()).toLocaleString());
+        userForm.setCreatedDate(new Timestamp(new Date().getTime()));
     	userService.save(userForm);
     	return "redirect:/";
     }

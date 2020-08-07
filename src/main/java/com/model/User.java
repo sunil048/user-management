@@ -14,6 +14,9 @@ import java.util.Set;
 @Entity
 @Table(name = "Users")
 public class User implements Serializable{
+
+	private static final long serialVersionUID = 1L;
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
@@ -30,7 +33,8 @@ public class User implements Serializable{
 	@Column(name="password")
 	private String password;
 	
-	@DateTimeFormat(pattern = "dd-MM-yyyy")
+	//@DateTimeFormat(pattern = "dd-MM-yyyy")
+	@Column(name="dob")
 	private Date dob;
 	
 	@DateTimeFormat(pattern = "dd-MM-yyyy hh:mm:ss")
@@ -40,7 +44,6 @@ public class User implements Serializable{
 	@NotNull
 	@Column(name="is_active")
 	private boolean isActive=true;
-	
 	
 	public boolean getIsActive() {
 		return isActive;
