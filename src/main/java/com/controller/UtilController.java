@@ -1,6 +1,8 @@
 package com.controller;
 
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -17,9 +19,24 @@ public class UtilController {
 		return message;
 	}
 	
+	@GetMapping("/rest/generateTaskId")
+	public ResponseEntity<Object> getTaskId() {
+		try {
+			return new ResponseEntity<Object>(HttpStatus.OK).ok(String.valueOf(IDGenerator.generateTaskId()));
+		}catch(Exception e) {
+			return new ResponseEntity<Object>(HttpStatus.OK).ok(e.getMessage());
+		}
+		
+	}
+	
 	@GetMapping("/generateTaskId")
-	public String getTaskId() {
-		return String.valueOf(IDGenerator.generateTaskId());
+	public ResponseEntity<Object> getTaskId1() {
+		try {
+			return new ResponseEntity<Object>(HttpStatus.OK).ok(String.valueOf(IDGenerator.generateTaskId()));
+		}catch(Exception e) {
+			return new ResponseEntity<Object>(HttpStatus.OK).ok(e.getMessage());
+		}
+		
 	}
 	
 }

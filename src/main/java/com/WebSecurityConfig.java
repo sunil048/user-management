@@ -29,14 +29,17 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         http
             .authorizeRequests()
                 .antMatchers("/resources/**", "/registration").permitAll()
+                .antMatchers("/rest/**", "/rest").permitAll()
                 .anyRequest().authenticated()
                 .and()
+                .httpBasic();
+            /*    .and()
             .formLogin()
                 .loginPage("/login")
                 .permitAll()
-                .and()
+                .and()+
             .logout()
-                .permitAll();
+                .permitAll();*/
     }
 
     @Bean
