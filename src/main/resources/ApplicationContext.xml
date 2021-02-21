@@ -13,7 +13,7 @@
 <bean id = "systemProp" class=" com.sabedu.standalone.beans.SystemProp" >
 	<!-- <constructor-arg index="0" value="Hello welcome to construct argument #{19 + 1}" /> -->
 	<!-- <constructor-arg index="0" value="Hello welcome to construct argument #{Student.msg}" /> -->
-	<constructor-arg index="0" value="Hello welcome to construct argument #{SystemProperties.OS}" />
+	<constructor-arg index="0" value="Hello welcome to construct argument #{systemProperties['user.name']}" />
 </bean>
   
 </beans>  
