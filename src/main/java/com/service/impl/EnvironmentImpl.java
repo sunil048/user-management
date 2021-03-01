@@ -3,6 +3,7 @@
  */
 package com.service.impl;
 
+import java.sql.SQLException;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
@@ -17,6 +18,8 @@ import org.springframework.stereotype.Service;
 import com.exception.EnvironmentException;
 import com.model.Environment;
 import com.repository.EnvironmentRepository;
+import com.repository.dao.ApplicationDao;
+import com.repository.dao.EnvironmentDao;
 import com.service.EnvironmentService;
 import com.service.SecurityService;
 import com.util.IDGenerator;
@@ -45,6 +48,9 @@ public class EnvironmentImpl implements EnvironmentService {
 	
 	@Autowired
 	private RequestUtils req;
+	
+	@Autowired
+	private EnvironmentDao envDao;
 	
 
 	/* (non-Javadoc)
@@ -110,5 +116,14 @@ public class EnvironmentImpl implements EnvironmentService {
 	
 	public String getLoggedUserName() {
 		return securityService.findCorrentUser();
+	}
+
+
+	/* (non-Javadoc)
+	 * @see com.service.EnvironmentService#getEnvironmentName(java.lang.Long)
+	 */
+	@Override
+	public String getEnvironmentName(Long envRefNo) throws SQLException {
+		return envDao.getEnvironmentNameByRefNo(envRefNo);
 	}
 }

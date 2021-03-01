@@ -38,6 +38,11 @@ public class ApplicationServiceImpl implements ApplicationService {
 	public Application addApplication(Application app) throws EnvironmentException {
 	//	app.setEnvRef(Long.valueOf(getEnvRefNameList().get(app.getEnvRef())));
 		app.setEnvRef(app.getEnvRef());
+		String envName = getEnvName(app.getEnvRef());
+		if (envName != null)
+			app.setEnvName(envName);
+		else
+			app.setEnvName("");
 		return appRepo.save(app);
 	}
 
@@ -77,4 +82,12 @@ public class ApplicationServiceImpl implements ApplicationService {
 		return appRepo.getApplicationListByEnvironmentRefNo(envRefNo);
 	}
 
+	private String getEnvName(Long envRefNo) throws EnvironmentException {
+		for (Environment env : envService.getEnvironmentList()) {
+			if (env.getRefNo() == envRefNo) {
+				return env.getName();
+			}
+		}
+		return null;
+	}
 }

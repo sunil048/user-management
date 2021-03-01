@@ -6,24 +6,21 @@ package com.repository.dao;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.List;
 
 import org.springframework.stereotype.Repository;
-
-import com.model.Application;
 
 /**
  * @author Sunil
  *
- * ApplicationDao.java Feb 25, 2021 9:30:15 PM
+ * EnvironmentDao.java Feb 28, 2021 12:01:12 PM
  */
 @Repository
-public class ApplicationDao extends DBUtil {
-	
-	private static final String List_By_Environment_RefNo ="select name from environments where env_ref=?";
+public class EnvironmentDao extends DBUtil{
+private static final String List_By_Environment_RefNo ="select name from environments where ref_no=?";
 	
 	public String getEnvironmentNameByRefNo(Long envRefNo) throws SQLException{
 		start();
+		String envName = null;
 		try
 		{
 			if (connection != null) {
@@ -31,13 +28,18 @@ public class ApplicationDao extends DBUtil {
 				prstmt.setLong(1, envRefNo);
 				ResultSet rs = prstmt.executeQuery();
 				while(rs.next()) {
-					return rs.getString(1);
+					envName = rs.getString(1);
 				}
 			}
-		} finally {
-			stop();
+			return envName;
+		} catch(Exception e)
+		{
+			e.printStackTrace();
 			return null;
 		}
+		finally {
+			stop();
+			
+		}
 	}
-
 }

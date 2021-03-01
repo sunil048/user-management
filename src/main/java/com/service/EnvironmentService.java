@@ -3,6 +3,7 @@
  */
 package com.service;
 
+import java.sql.SQLException;
 import java.util.List;
 import java.util.Optional;
 
@@ -23,5 +24,6 @@ public interface EnvironmentService {
 	public List<Environment> getEnvironmentList() throws EnvironmentException;
 	public Environment getEnvironmentDetails(Long envRefNo) throws EnvironmentException;
 	public Long getSequence();
+	public String getEnvironmentName(Long envzRefNo) throws SQLException;
 	
 }

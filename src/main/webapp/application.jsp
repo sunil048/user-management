@@ -3,6 +3,7 @@
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
+<%@ page import="com.repository.dao.EnvironmentDao" %>	
 <!DOCTYPE html>
 <html>
 <head>
@@ -24,7 +25,7 @@
 					<%-- <form:options items="${envList}" itemValue="env" itemLabel="env"/>   --%>
 					<form:option value="" label="--- Select Age ---"/>
 					<c:forEach var="env" items="${envList}">
-						<form:option  label="${env.value}" value="${env.key}" />
+						<form:option  label="${env.value}" value="${env.key}" envName="${env.value}" />
 						</c:forEach>
 					</form:select>
 				</td>
@@ -90,7 +91,14 @@
 			</tr>
 			<c:forEach items="${applications}" var="app">
 				<tr>
-					<td><a href="${contextPath}/environment/details/${app.envRef}">${app.envRef}</a></td>
+					<td><a href="${contextPath}/environment/details/${app.envRef}" > ${app.envRef} ${app.envName}
+					<%-- <%
+					EnvironmentDao envDao =  new EnvironmentDao();
+					
+					%>
+					<% out.println(envDao.getEnvironmentNameByRefNo(Long.valueOf((String)request.getAttribute("envRef"))));%> --%>
+					<%-- <c:out><%envDao.getEnvironmentNameByRefNo(Long.valueOf(request.getAttribute("envRef"))));%></c:out> --%>
+					</a></td>
 					<td>${app.appName}</td>
 					<td>${app.id}</td>
 					<td>${app.appType}</td>

@@ -37,7 +37,7 @@
 		</table>
 		<c:if test="${env.machine != null}">
 			<h6>Mchine</h6>
-		<table class="table">
+		<table border="1">
 			<tr>
 				<th>machineName</th>
 				<th>machineType</th>
@@ -58,7 +58,7 @@
 		</c:if>
 		<c:if test="${env.os != null}">
 		<h6>Operating System</h6>
-		<table class="table">
+		<table border="1">
 			<tr>
 				<th>osName</th>
 				<th>osType</th>
@@ -75,7 +75,7 @@
 		</c:if>
 			<c:if test="${applications != null}">
 		<h6>Installed Applications</h6>
-		<table class="table">
+		<table border="1">
 			<tr>
 				<th>App Name</th>
 				<th>App Type</th>

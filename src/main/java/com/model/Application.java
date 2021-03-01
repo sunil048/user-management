@@ -23,7 +23,7 @@ public class Application {
 	private Long id;
 	private String appName;
 	private String appType;
-	//private String env;
+	private String envName;
 	@Column(name="env_ref")
 	private Long envRef;
 	private String installedPath;
@@ -33,6 +33,14 @@ public class Application {
 	private String url;
 	private String instanceName;
 	
+	
+	
+	public String getEnvName() {
+		return envName;
+	}
+	public void setEnvName(String envName) {
+		this.envName = envName;
+	}
 	/*@ManyToOne
 	@JoinColumn(name="env_ref",nullable = false, insertable = false, updatable = false)
 	private Environment environment;

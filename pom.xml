@@ -9,7 +9,7 @@
 		<version>2.1.4.BUILD-SNAPSHOT</version>
 		<relativePath /> <!-- lookup parent from repository -->
 	</parent>
-	<groupId>com.example</groupId>
+	<groupId>com.sabtok</groupId>
 	<artifactId>user-management</artifactId>
 	<version>1</version>
 	<name>user-management</name>
