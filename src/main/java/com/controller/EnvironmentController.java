@@ -5,6 +5,8 @@ package com.controller;
 
 import javax.persistence.MappedSuperclass;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -27,6 +29,8 @@ import com.service.EnvironmentService;
 @Controller
 @RequestMapping("/environment")
 public class EnvironmentController {
+	
+	private static Logger log = LoggerFactory.getLogger(EnvironmentController.class);
 
 	@Autowired
 	private EnvironmentService envSer;
@@ -37,9 +41,11 @@ public class EnvironmentController {
 	@PostMapping("/save")
 	public String saveEnvironment(@ModelAttribute("environment") Environment model,Model modelUI) {
 		try {
+			log.info("saveEnvironment() called...");
 			envSer.addEnvironment(model);
 			modelUI.addAttribute("environment", model);
 			modelUI.addAttribute("environments", envSer.getEnvironmentList());
+			log.info("completed request");
 			return "environment";
 		} catch (Exception e) {
 			modelUI.addAttribute("Error ",e.getMessage());
@@ -50,6 +56,7 @@ public class EnvironmentController {
 	@GetMapping("/home")
 	public String homePage(Model model) {
 		try {
+			log.info("home page() called...");
 			Environment env = new Environment();
 			env.setRefNo(envSer.getSequence());
 			model.addAttribute("environment", env);
