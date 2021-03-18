@@ -9,7 +9,7 @@
 <head>
 <meta charset="ISO-8859-1">
 <title>Insert title here</title>
-<link href="${contextPath}/resources/css/bootstrap.min.css"
+<link href="${pageContext.request.contextPath}/resources/css/bootstrap.min.css"
 	rel="stylesheet">
 </head>
 <body>
@@ -91,7 +91,7 @@
 			</tr>
 			<c:forEach items="${applications}" var="app">
 				<tr>
-					<td><a href="${contextPath}/environment/details/${app.envRef}" > ${app.envRef} ${app.envName}
+					<td><a href="${pageContext.request.contextPath}/environment/details/${app.envRef}" > ${app.envRef} ${app.envName}
 					<%-- <%
 					EnvironmentDao envDao =  new EnvironmentDao();
 					

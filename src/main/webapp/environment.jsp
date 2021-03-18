@@ -8,7 +8,7 @@
 <head>
 <meta charset="ISO-8859-1">
 <title>Environment</title>
-<link href="${contextPath}/resources/css/bootstrap.min.css" rel="stylesheet">
+<link href="${pageContext.request.contextPath}/resources/css/bootstrap.min.css" rel="stylesheet">
 </head>
 <body>
 	<%@include file="header.jsp"%>
@@ -88,7 +88,7 @@
 			</tr>
 			<c:forEach items="${environments}" var="env">
 				<tr>
-					<td><a href="${contextPath}/environment/details/${env.refNo}">${env.refNo}</a></td>
+					<td><a href="${pageContext.request.contextPath}/environment/details/${env.refNo}">${env.refNo}</a></td>
 					<td>${env.envId}</td>
 					<td>${env.name}</td>
 					<td>${env.createdDate}</td>
