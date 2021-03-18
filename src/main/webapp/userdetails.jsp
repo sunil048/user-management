@@ -8,13 +8,13 @@
 <head>
 <meta charset="ISO-8859-1" />
 <title>User Details</title>
- <link href="${contextPath}/resources/css/bootstrap.min.css" rel="stylesheet">
+ <link href="${pageContext.request.contextPath}/resources/css/bootstrap.min.css" rel="stylesheet">
 </head>
 <body>
 <%@include file= "header.jsp" %>
 	<h1 class="h4">User Details</h1>
 	<h1 class="h6">User Form</h1>
-	<form:form action="${contextPath}/saveUser" modelAttribute="userDetailsForm" method="post"
+	<form:form action="${pageContext.request.contextPath}/saveUser" modelAttribute="userDetailsForm" method="post"
 		class="form-signin">
 		<table>
 			<tr>
@@ -72,7 +72,7 @@
 		</tr>
 		<c:forEach items="${userList}" var="user">
 		<tr>
-		   <td><a href="${contextPath}/userHome/${user.id}">${user.id}</a></td>
+		   <td><a href="${pageContext.request.contextPath}/userHome/${user.id}">${user.id}</a></td>
 		   <td>${user.username}</td>
 		   <td>${user.gender}</td>
 		   <td>${user.dob}</td>
